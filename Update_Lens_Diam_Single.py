@@ -35,35 +35,29 @@ def run(context):
         # Get the root component of the active design
         rootComp = design.rootComponent
 
-        # Specify the folder to write out the results.
-        # folder = r'C:\\Users\\luisd\\Desktop\\Lens_Cap_Holder\\'
-
         # Get the parameters named "Length" and "Width" to change.
         LensDiam_par = design.allParameters.itemByName('LensDiam')
         StrapWidth_par = design.allParameters.itemByName('StrapWidth')
 
-        
-        sizes = []
-        for ind, dim in enumerate(diameters, start=0):
-            if ind > 0:
-                           
-                Diam_set = dim
-                Width_set = StrapWidth_Input[0]
-                LensDiam_par.expression = str(Diam_set)
-                StrapWidth_par.expression = str(Width_set)
+        for dim in diameters:
+       
+            Diam_set = dim
+            Width_set = StrapWidth_Input[0]
+            LensDiam_par.expression = str(Diam_set)
+            StrapWidth_par.expression = str(Width_set)
 
-                # Let the view have a chance to paint just so you can watch the progress.
-                adsk.doEvents()
-                
-                # Construct the output filename.
-                filename = f'{folder}\LensCapHolder_D{Diam_set}mm_Strap_{Width_set}mm.stl'
-                
-                # Save the file as STL.
-                exportMgr = adsk.fusion.ExportManager.cast(design.exportManager)
-                stlOptions = exportMgr.createSTLExportOptions(rootComp)
-                stlOptions.meshRefinement = adsk.fusion.MeshRefinementSettings.MeshRefinementMedium
-                stlOptions.filename = filename
-                exportMgr.execute(stlOptions)
+            # Let the view have a chance to paint just so you can watch the progress.
+            adsk.doEvents()
+            
+            # Construct the output filename.
+            filename = f'{folder}\LensCapHolder_D{Diam_set}mm_Strap_{Width_set}mm.stl'
+            
+            # Save the file as STL.
+            exportMgr = adsk.fusion.ExportManager.cast(design.exportManager)
+            stlOptions = exportMgr.createSTLExportOptions(rootComp)
+            stlOptions.meshRefinement = adsk.fusion.MeshRefinementSettings.MeshRefinementMedium
+            stlOptions.filename = filename
+            exportMgr.execute(stlOptions)
         
         ui.messageBox('Finished.')
     except:
