@@ -2,7 +2,6 @@
 # Update the diameter of Lens Cap Holder and save each version as STL
 
 import adsk.core, adsk.fusion, adsk.cam, traceback
-import itertools
 
 def run(context):
     ui = None
